@@ -4,8 +4,6 @@ export function initClockAndCalendar() {
 }
 
 
-
-
 function initClock() {
   const time = document.querySelector('.time');
   const day = document.querySelector('.date');
