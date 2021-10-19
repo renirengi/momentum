@@ -5,7 +5,7 @@ export function initQuote() {
    function initText(){
 
     async function getQuotes() {  
-        const quotes = 'data.json';
+        const quotes = '../assets/dataEng.json';
         const res = await fetch(quotes);
         const data = await res.json(); 
         console.log(data);
