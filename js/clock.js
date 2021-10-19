@@ -1,19 +1,6 @@
 
 export function initClockAndCalendar() {
-  /*function setLocalStorage() {
-  localStorage.setItem('input', input.value);
-}
-
-window.addEventListener('beforeunload', setLocalStorage);
-
-function getLocalStorage() {
-  if(localStorage.getItem('input')) {
-    input.value = localStorage.getItem('input');
-  }
-}
-window.addEventListener('load', getLocalStorage);*/
-
-  window.addEventListener('load', () => initClock());
+ window.addEventListener('load', () => initClock());
 }
 
 
@@ -37,7 +24,6 @@ function initClock() {
 
   function getLocalStorage() {
     const name = localStorage.getItem('input');
-    console.log(name);
     if (name) {
       input.value = name;
     }
