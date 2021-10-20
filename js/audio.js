@@ -3,9 +3,9 @@ export function initAudio() {
    }
 
    function initPlayer(){
-       const audio = document.querySelector('.player');
+       const controls = document.querySelector('.player-controls');
        const prev = document.querySelector('.play-prev')
-       const actionButton = document.getElementById("action");
+       const actionButton = document.querySelector(".action");
        const next = document.querySelector('.prev-next');
     
        const progressBar = document.getElementById("progress-bar");
@@ -16,13 +16,13 @@ export function initAudio() {
 
 
        actionButton.addEventListener('click', playAudio);
-       audio.addEventListener('timeupdate', audioProgress);
+       document.addEventListener('timeupdate', audioProgress);
        progressBar.addEventListener('click', audioChangeTime);
        muteButton.addEventListener('click', audioMute);
         volumeScale.addEventListener('change', audioChangeVolume);
 
        let isPlay=false;
-       ///const audioPlayer= new Audio();
+       const audio= new Audio();
 
        function playAudio(){
            audio.src=playList[0].src;
