@@ -35,7 +35,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
+  width: 350px;
   margin-bottom: 28px;
 }
 
@@ -71,7 +71,7 @@ body {
 
 .player-icon,
 .slider-icon,
-.change-quote {
+.change-quote{
   width: 32px;
   height: 32px;
   background-size: 32px 32px;
@@ -99,7 +99,7 @@ body {
   transform: scale(1.1);
 }
 
-.play {
+.action .play {
   width: 40px;
   height: 40px;
   background-size: 40px 40px;
@@ -116,6 +116,67 @@ body {
 
 .play-next {
   background-image: url("../assets/svg/play-next.svg");
+}
+
+.mute .true{
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;  
+  background-image: url("../assets/svg/high-volume.svg") ;
+}
+
+
+.curr-time,
+.duration{
+  font-size: smaller;
+}
+
+.progress-bar {
+  background-color: #679dad;
+  border: solid 1px white;
+  border-radius: 25%;
+  height: 5px;
+  width: 80px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background: white;
+}
+
+.volume {
+  background-color: #679dad;
+  border: solid 1px white;
+  border-radius: 25%;
+  height: 5px;
+  width: 50px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+}
+
+.volume::-webkit-slider-thumb {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background: white;
 }
 
 .weather {
