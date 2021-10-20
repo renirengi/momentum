@@ -1,3 +1,5 @@
+import playList from './playList.js';
+
 export function initAudio() {
     window.addEventListener('load', () => initPlayer());
    }
@@ -5,28 +7,32 @@ export function initAudio() {
    function initPlayer(){
        const controls = document.querySelector('.player-controls');
        const prev = document.querySelector('.play-prev')
-       const actionButton = document.querySelector(".action");
+       const actionButton = document.querySelector('.action');
        const next = document.querySelector('.prev-next');
     
-       const progressBar = document.getElementById("progress-bar");
-        const currTime = document.getElementById("curr-time");
+       const progressBar = document.getElementById('progress-bar');
+        const currTime = document.getElementById('curr-time');
         const durationTime = document.getElementById("duration");
         const muteButton = document.getElementById("mute");
         const volumeScale = document.querySelector(".volume");
-
+        const audio= new Audio();
 
        actionButton.addEventListener('click', playAudio);
-       document.addEventListener('timeupdate', audioProgress);
+       audio.addEventListener('timeupdate', audioProgress);
        progressBar.addEventListener('click', audioChangeTime);
        muteButton.addEventListener('click', audioMute);
         volumeScale.addEventListener('change', audioChangeVolume);
 
        let isPlay=false;
-       const audio= new Audio();
+       let temp=3;
+       
 
        function playAudio(){
-           audio.src=playList[0].src;
+           audio.src=playList[temp].src;
+           ///const res = await fetch(playList);
+            ///const data = await res.json(); 
            audio.currentTime=0; 
+           console.log (playList[temp]['duration']);
 
            if(isPlay===false){
              audio.play();
@@ -37,10 +43,12 @@ export function initAudio() {
                audio.pause();
                isPlay=false;
                actionButton.classList.toggle("pause");
+               //durationTime.innerHTML=;
+
            }
-           if (durationTime.innerHTML == "00:00") {
-            durationTime.innerHTML = audioTime(audio.duration);
-        }
+           //if (durationTime.innerHTML == "00:00") {
+            //durationTime.innerHTML = audioTime(audio.duration);
+        //}
         }
 
         function audioTime(time) {
@@ -59,9 +67,12 @@ export function initAudio() {
         }
     
         function audioProgress() {
-            progress = audio.currentTime / audio.duration;
+           let progress = audio.currentTime / audio.duration;
             progressBar.value = progress * 100;
             currTime.innerHTML = audioTime(audio.currentTime);
+            
+            durationTime.innerHTML = audioTime(audio.duration);
+            
         }
 
         function audioChangeTime(e) {
