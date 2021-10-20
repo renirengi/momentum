@@ -6,7 +6,7 @@ function loadWeather() {
   const weatherIcon = document.querySelector('.weather-icon');
   const temperature = document.querySelector('.temperature');
   const weatherDescription = document.querySelector('.weather-description');
-  const weatherErrorr
+  const weatherError=document.querySelector('.weather-error');
   const wind = document.querySelector('.wind');
   const humidity = document.querySelector('.humidity');
 
@@ -26,12 +26,17 @@ function loadWeather() {
       wind.textContent = `Wind ${Math.round(data.wind.speed)} meter per second`;
       humidity.textContent = `Humidity ${Math.round(data.main.humidity)}%`;
     } catch (e) {
-      console.log(e);
+      weatherError.textContent= 'Error! Cannot read this properties!';
+      ///city.value="Minsk";
+      getWeather()
+
     }
 
 
   }
   getWeather();
+
+ 
 
   city.addEventListener('change', () => {
     console.log(city.value);
