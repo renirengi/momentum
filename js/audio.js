@@ -32,7 +32,7 @@ export function initAudio() {
 
        let isPlay=false;
        let temp=3; 
-       ;
+       
        audio.currentTime=0;
 
        function playAudio(){
@@ -40,12 +40,14 @@ export function initAudio() {
            if(isPlay===false){
              audio.play();
              isPlay=true;
+             actionButton.classList.remove("play");
              actionButton.classList.toggle("pause");
            }
            else {
                audio.pause();
                isPlay=false;
-               actionButton.classList.toggle("pause");
+               actionButton.classList.remove("pause");
+               actionButton.classList.toggle("play");
             }
            
         }
@@ -91,8 +93,10 @@ export function initAudio() {
         function audioChangeVolume() {
             audio.volume = volumeScale.value / 100;
             if (audio.volume == 0) {
-                muteButton.classList.toggle('true');
+                muteButton.classList.remove('true');
+                muteButton.classList.toggle('false');
             } else {
+                muteButton.classList.remove('false');
                 muteButton.classList.toggle('true');
             }
         }
@@ -100,10 +104,12 @@ export function initAudio() {
         function audioMute() {
             if (audio.volume === 0) {
                 audio.volume = volumeScale.value / 100;
-                muteButton.classList.toggle('true');
+                muteButton.classList.remove('true');
+                muteButton.classList.toggle('false');
             }
             else {
                 audio.volume = 0;
+                muteButton.classList.remove('false');
                 muteButton.classList.toggle('true');
             }
         }
