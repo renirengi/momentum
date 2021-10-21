@@ -6,12 +6,9 @@ export function initAudio() {
 
    function initPlayer(){
        const audioPlayer = document.querySelector('.player');
-      
-       const timeline = audioPlayer.querySelector('.timeline');
        const volumeScale = document.querySelector(".volume");
-       const volumePercentage=document.querySelector(".volume-percentage");
-
-        const durationTime = document.getElementById("duration");
+       const durationTime = document.getElementById("duration");
+       const songName = document.querySelector(".song-name");
 
        //const prev = document.querySelector('.play-prev')
        const actionButton = document.querySelector('.action');
@@ -30,27 +27,32 @@ export function initAudio() {
        muteButton.addEventListener('click', audioMute);
        volumeScale.addEventListener('change', audioChangeVolume);
 
-       let isPlay=false;
-       let temp=3; 
        
+       let temp=0;
+       const audioState = {
+        currentTime: 0,
+        playing: false,
+      }; 
+       songName.textContent=playList[temp]['title'];
        audio.currentTime=0;
 
-       function playAudio(){
-           audio.src=playList[temp].src;
-           if(isPlay===false){
-             audio.play();
-             isPlay=true;
-             actionButton.classList.remove("play");
-             actionButton.classList.toggle("pause");
-           }
-           else {
-               audio.pause();
-               isPlay=false;
-               actionButton.classList.remove("pause");
-               actionButton.classList.toggle("play");
-            }
-           
+
+       function playAudio() {
+        audio.src = playList[temp].src;
+    
+        if (!audioState.playing) {
+          audio.currentTime = audioState.currentTime;
+          audio.play();
+          actionButton.classList.remove('play');
+          actionButton.classList.add('pause');
+        } else {
+          audio.pause();
+          actionButton.classList.remove('pause');
+          actionButton.classList.add('play');
         }
+    
+        audioState.playing = !audioState.playing;
+      }
         
         function audioTime(time) {
             time = Math.floor(time);
@@ -68,16 +70,14 @@ export function initAudio() {
         }
     
         function audioProgress() {
-            let progress = audio.currentTime / audio.duration;
-            progressBar.value= progress * 100; 
-            console.log (progressBar.value);
-
-            currTime.innerHTML = audioTime(audio.currentTime);
-            durationTime.innerHTML = audioTime(audio.duration);
-
-            if(audio.pause){
-             progressBar.value= progress * 100;
-             durationTime.innerHTML=playList[temp]['duration'];   
+            const { currentTime, duration } = audio;
+            const progress = currentTime * 100 / duration;
+        
+            if (!isNaN(progress)) {
+              audioState.currentTime = currentTime;
+              progressBar.value = progress;
+              currTime.innerHTML = audioTime(currentTime);
+              durationTime.innerHTML = audioTime(duration);
             }
             
         }
@@ -94,10 +94,10 @@ export function initAudio() {
             audio.volume = volumeScale.value / 100;
             if (audio.volume == 0) {
                 muteButton.classList.remove('true');
-                muteButton.classList.toggle('false');
+                muteButton.classList.add('false');
             } else {
                 muteButton.classList.remove('false');
-                muteButton.classList.toggle('true');
+                muteButton.classList.add('true');
             }
         }
     
@@ -105,12 +105,12 @@ export function initAudio() {
             if (audio.volume === 0) {
                 audio.volume = volumeScale.value / 100;
                 muteButton.classList.remove('true');
-                muteButton.classList.toggle('false');
+                muteButton.classList.add('false');
             }
             else {
                 audio.volume = 0;
                 muteButton.classList.remove('false');
-                muteButton.classList.toggle('true');
+                muteButton.classList.add('true');
             }
         }
     }
