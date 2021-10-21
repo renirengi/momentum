@@ -10,9 +10,9 @@ export function initAudio() {
        const durationTime = document.getElementById("duration");
        const songName = document.querySelector(".song-name");
 
-       //const prev = document.querySelector('.play-prev')
+       const prev = document.querySelector('.play-prev')
        const actionButton = document.querySelector('.action');
-       //const next = document.querySelector('.prev-next');
+       const next = document.querySelector('.play-next');
     
         const progressBar = document.getElementById('progress-bar');
         const currTime = document.getElementById('curr-time');
@@ -26,19 +26,23 @@ export function initAudio() {
        progressBar.addEventListener('click', audioChangeTime);
        muteButton.addEventListener('click', audioMute);
        volumeScale.addEventListener('change', audioChangeVolume);
-
+        prev.addEventListener ('click', playPrev);
+        next.addEventListener ('click', playNext);
        
-       let temp=0;
+       let playNum=0;
+       songName.textContent=playList[playNum]['title'];
        const audioState = {
         currentTime: 0,
         playing: false,
       }; 
-       songName.textContent=playList[temp]['title'];
+
+      
        audio.currentTime=0;
 
 
        function playAudio() {
-        audio.src = playList[temp].src;
+        audio.src = playList[playNum].src; 
+        songName.textContent=playList[playNum]['title'];
     
         if (!audioState.playing) {
           audio.currentTime = audioState.currentTime;
@@ -53,6 +57,30 @@ export function initAudio() {
     
         audioState.playing = !audioState.playing;
       }
+
+      function playPrev(){
+          if(playNum===0){
+              playNum=3;
+              playAudio();
+          }
+          else{
+          playNum--;
+          playAudio();    
+          }
+          
+      }
+
+      function playNext(){
+        if(playNum===3){
+            playNum=0;
+            playAudio();
+        }
+        else{
+        playNum++;
+        playAudio();    
+        }
+        
+    }
         
         function audioTime(time) {
             time = Math.floor(time);
