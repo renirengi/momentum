@@ -10,4 +10,4 @@ initSlider();
 initWeather();
 initQuote();
 initAudio();
-console.log(playList);
+

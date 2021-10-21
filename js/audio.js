@@ -18,9 +18,11 @@ export function initAudio() {
         const currTime = document.getElementById('curr-time');
        
         const muteButton = document.getElementById("mute");
+        const music=document.querySelector('.play-list');
+        const playItem=document.querySelectorAll('.play-item');
+
         const audio= new Audio()
         
-
        actionButton.addEventListener('click', playAudio);
        audio.addEventListener('timeupdate', audioProgress);
        progressBar.addEventListener('click', audioChangeTime);
@@ -30,21 +32,41 @@ export function initAudio() {
         next.addEventListener ('click', playNext);
        
        let playNum=0;
+       
+      
        songName.textContent=playList[playNum]['title'];
        const audioState = {
         currentTime: 0,
         playing: false,
       }; 
-
       
        audio.currentTime=0;
+       
+        function addPlaylist(){
+        for(let i=0; i<playList.length; i++){
+        const li=document.createElement('li');
+        li.classList.add('play-item');
+        li.textContent=playList[i]['title'];
+        }
+        }
+        addPlaylist();
+        
 
+        /*function checkPlayList(){
+            for(let i=0; i<playList.length; i++){
+                if(i==playNum){
+                    playList[i].classList.remove('play-item');
+                    playList[i].classList.add('item-active');
+                }
+        }
+    }
+    checkPlayList();*/
 
        function playAudio() {
         audio.src = playList[playNum].src; 
         songName.textContent=playList[playNum]['title'];
-    
-        if (!audioState.playing) {
+
+          if (!audioState.playing) {
           audio.currentTime = audioState.currentTime;
           audio.play();
           actionButton.classList.remove('play');
@@ -58,17 +80,17 @@ export function initAudio() {
         audioState.playing = !audioState.playing;
       }
 
-      function playPrev(){
+      function playPrev(){ 
           if(playNum===0){
               playNum=3;
               playAudio();
+             
           }
           else{
           playNum--;
           playAudio();    
           }
-          
-      }
+    }
 
       function playNext(){
         if(playNum===3){
@@ -79,9 +101,8 @@ export function initAudio() {
         playNum++;
         playAudio();    
         }
-        
-    }
-        
+     }
+  
         function audioTime(time) {
             time = Math.floor(time);
             let minutes = Math.floor(time / 60);
@@ -119,28 +140,41 @@ export function initAudio() {
         }
 
         function audioChangeVolume() {
-            audio.volume = volumeScale.value / 100;
+            audioState.volumeValue = volumeScale.value / 100;
+            audio.volume = audioState.volumeValue;
+        
             if (audio.volume == 0) {
-                muteButton.classList.remove('true');
-                muteButton.classList.add('false');
+              showMutedIcon();
             } else {
-                muteButton.classList.remove('false');
-                muteButton.classList.add('true');
+              showUnmutedButton();
             }
-        }
-    
-        function audioMute() {
-            if (audio.volume === 0) {
-                audio.volume = volumeScale.value / 100;
-                muteButton.classList.remove('true');
-                muteButton.classList.add('false');
+          }
+        
+          function audioMute() {
+            const { muted, volumeValue } = audioState;
+        
+            if (muted) { // Unmute
+              audio.volume = volumeValue > 0 ? volumeValue : 0.1;
+              showUnmutedButton()
+            } else { // Mute
+              audio.volume = 0;
+              showMutedIcon();
             }
-            else {
-                audio.volume = 0;
-                muteButton.classList.remove('false');
-                muteButton.classList.add('true');
-            }
-        }
+        
+            audioState.muted = !muted;
+          }
+        
+          function showMutedIcon() {
+            muteButton.classList.remove('true');
+            muteButton.classList.add('false');
+          }
+        
+          function showUnmutedButton() {
+            muteButton.classList.remove('false');
+            muteButton.classList.add('true');
+          }
+
+
     }
 
 
