@@ -5,35 +5,38 @@ export function initAudio() {
    }
 
    function initPlayer(){
-       const controls = document.querySelector('.player-controls');
-       const prev = document.querySelector('.play-prev')
-       const actionButton = document.querySelector('.action');
-       const next = document.querySelector('.prev-next');
-    
-       const progressBar = document.getElementById('progress-bar');
-        const currTime = document.getElementById('curr-time');
+       const audioPlayer = document.querySelector('.player');
+      
+       const timeline = audioPlayer.querySelector('.timeline');
+       const volumeScale = document.querySelector(".volume");
+       const volumePercentage=document.querySelector(".volume-percentage");
+
         const durationTime = document.getElementById("duration");
+
+       //const prev = document.querySelector('.play-prev')
+       const actionButton = document.querySelector('.action');
+       //const next = document.querySelector('.prev-next');
+    
+        const progressBar = document.getElementById('progress-bar');
+        const currTime = document.getElementById('curr-time');
+       
         const muteButton = document.getElementById("mute");
-        const volumeScale = document.querySelector(".volume");
-        const audio= new Audio();
+        const audio= new Audio()
+        
 
        actionButton.addEventListener('click', playAudio);
        audio.addEventListener('timeupdate', audioProgress);
        progressBar.addEventListener('click', audioChangeTime);
        muteButton.addEventListener('click', audioMute);
-        volumeScale.addEventListener('change', audioChangeVolume);
+       volumeScale.addEventListener('change', audioChangeVolume);
 
        let isPlay=false;
-       let temp=3;
-       
+       let temp=3; 
+       ;
+       audio.currentTime=0;
 
        function playAudio(){
            audio.src=playList[temp].src;
-           ///const res = await fetch(playList);
-            ///const data = await res.json(); 
-           audio.currentTime=0; 
-           console.log (playList[temp]['duration']);
-
            if(isPlay===false){
              audio.play();
              isPlay=true;
@@ -43,14 +46,10 @@ export function initAudio() {
                audio.pause();
                isPlay=false;
                actionButton.classList.toggle("pause");
-               //durationTime.innerHTML=;
-
-           }
-           //if (durationTime.innerHTML == "00:00") {
-            //durationTime.innerHTML = audioTime(audio.duration);
-        //}
+            }
+           
         }
-
+        
         function audioTime(time) {
             time = Math.floor(time);
             let minutes = Math.floor(time / 60);
@@ -67,11 +66,17 @@ export function initAudio() {
         }
     
         function audioProgress() {
-           let progress = audio.currentTime / audio.duration;
-            progressBar.value = progress * 100;
+            let progress = audio.currentTime / audio.duration;
+            progressBar.value= progress * 100; 
+            console.log (progressBar.value);
+
             currTime.innerHTML = audioTime(audio.currentTime);
-            
             durationTime.innerHTML = audioTime(audio.duration);
+
+            if(audio.pause){
+             progressBar.value= progress * 100;
+             durationTime.innerHTML=playList[temp]['duration'];   
+            }
             
         }
 
@@ -102,6 +107,7 @@ export function initAudio() {
                 muteButton.classList.toggle('true');
             }
         }
+    }
 
 
-   }
+   
