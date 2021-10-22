@@ -27,180 +27,8 @@ body {
   align-items: flex-start;
   width: 100%;
   height: 30vh;
-  min-height: 220px;  
+  min-height: 220px;
   padding: 20px;
-}
-
-.player-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 350px;
-  margin-bottom: 28px;
-}
-
-.play-list {
-  text-align: left;
-}
-
-.play-item {
-  position: relative;
-  padding: 5px;
-  padding-left: 20px;
-  list-style: none;
-  opacity: .8;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.play-item:hover {
-  opacity: 1;
-}
-
-.play-item::before {
-  content: "\2713";  
-  position: absolute;
-  left: 0;
-  top: 2px;
-  font-weight: 900;
-}
-
-.item-active::before {
-  color: #C5B358;
-}
-
-.player-icon,
-.slider-icon,
-.change-quote,
-.mute .true{
-  width: 32px;
-  height: 32px;
-  background-size: 32px 32px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: 0;
-  outline: 0;
-  opacity: .8;
-  cursor: pointer;
-  transition: .3s;  
-}
-
-.player-icon:hover,
-.slider-icon:hover,
-.change-quote:hover {
-  opacity: 1;
-}
-
-.player-icon:active,
-.slider-icon:active,
-.change-quote:active {
-  border: 0;
-  outline: 0;  
-  transform: scale(1.1);
-}
-
-.action.play{
-  width: 40px;
-  height: 40px;
-  background-size: 40px 40px;
-  background-image: url("../assets/svg/play.svg");
-}
-
-.action.pause {
-  background-image: url("../assets/svg/pause.svg");
-}
-
-.play-prev {
-  background-image: url("../assets/svg/play-prev.svg");
-}
-
-.play-next {
-  background-image: url("../assets/svg/play-next.svg");
-}
-
-.mute.true{
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: 0;
-  outline: 0;
-  opacity: .8;
-  cursor: pointer;
-  transition: .3s; 
-  background-image: url("../assets/svg/Volume.svg");  
-}
-
-
-.mute.false{
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: 0;
-  outline: 0;
-  opacity: .8;
-  cursor: pointer;
-  transition: .3s; 
-  background-image: url("../assets/svg/Volume_off.svg") ;
-}
-
-.curr-time,
-.duration{
-  font-size: small;
-}
-
-.song-name{
-font-size: small;
-margin-left: 10px;
-width:100px;
-margin-left: 40%;
-
-}
-
-.progress-bar {
-  background-color: #679dad;
-  border: solid 1px white;
-  border-radius: 25%;
-  height: 5px;
-  width: 80px;
-  outline: none;
-  transition: background 450ms ease-in;
-  -webkit-appearance: none;
-}
-
-.progress-bar::-webkit-slider-thumb {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  -webkit-appearance: none;
-  cursor: ew-resize;
-  background: white;
-}
-
-.volume {
-  background-color: #679dad;
-  border: solid 1px white;
-  border-radius: 25%;
-  height: 5px;
-  width: 50px;
-  outline: none;
-  transition: background 450ms ease-in;
-  -webkit-appearance: none;
-}
-
-.volume::-webkit-slider-thumb {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  -webkit-appearance: none;
-  cursor: ew-resize;
-  background: white;
 }
 
 .weather {
@@ -210,7 +38,7 @@ margin-left: 40%;
   align-items: flex-start;
   row-gap: 5px;
   width: 180px;
-  min-height: 180px;  
+  min-height: 180px;
   text-align: left;
 }
 
@@ -236,14 +64,14 @@ margin-left: 40%;
   padding: 5px;
   font-size: 20px;
   line-height: 24px;
-  color: #fff;  
+  color: #fff;
   border: 0;
   outline: 0;
   border-bottom: 1px solid #fff;
   background-color: transparent;
 }
 
-.city::placeholder {  
+.city::placeholder {
   font-size: 20px;
   color: #fff;
   opacity: .6;
@@ -257,7 +85,7 @@ margin-left: 40%;
   align-items: center;
   width: 100%;
   height: 40vh;
-  min-height: 260px;  
+  min-height: 260px;
   padding: 20px;
 }
 
@@ -283,7 +111,7 @@ margin-left: 40%;
   margin-bottom: 10px;
   font-family: 'Arial-MT';
   font-size: 100px;
-  letter-spacing: -4px;  
+  letter-spacing: -4px;
 }
 
 .date {
@@ -303,7 +131,7 @@ margin-left: 40%;
 }
 
 .greeting {
-  flex: 1;  
+  flex: 1;
   padding: 10px;
   text-align: right;
 }
@@ -332,13 +160,13 @@ margin-left: 40%;
   align-items: center;
   width: 100%;
   height: 30vh;
-  min-height: 160px;  
+  min-height: 160px;
   padding: 20px;
 }
 
 .change-quote {
   margin-bottom: 30px;
-  background-image: url("../assets/svg/reload.svg");  
+  background-image: url("../assets/svg/reload.svg");
 }
 
 .quote {
@@ -352,7 +180,7 @@ margin-left: 40%;
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
-    font-size: 72px;    
+    font-size: 72px;
   }
 
   .greeting-container {
