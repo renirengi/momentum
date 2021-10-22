@@ -1,109 +1,108 @@
-export function initSlider() {
-    window.addEventListener('load', () => loadPicture());
-   }
+export function initSlider(loaderName) {
+  const loaders = {
+    unsplash: BackgroundLoaderUnsplash,
+    github: BackgroundLoaderGithub
+  };
+  const bodyElement = document.querySelector('body');
+  const nextElement = document.querySelector('.slide-next');
+  const previousElement = document.querySelector('.slide-prev');
+  const selectedLoader = loaders[loaderName] || BackgroundLoaderUnsplash;
+  const backgroundLoader = new selectedLoader(bodyElement);
 
-function loadPicture(){
-    const body = document.querySelector('body');
-    const slideNext = document.querySelector('.slide-next');
-    const slidePrev = document.querySelector('.slide-prev');
-    let bgNum;
-   let url;
+  window.addEventListener('load', () => backgroundLoader.load());
+  previousElement.addEventListener('click', () => backgroundLoader.previous());
+  nextElement.addEventListener('click', () => backgroundLoader.next());
+}
 
-    
-    
-    const date = new Date();
-    const hours = date.getHours();
-        
-     const img=body.style.backgroundImage;
+class BackgroundLoaderUnsplash {
+  constructor(bodyElement) {
+    this.bodyElement = bodyElement;
+  }
 
-  async function getLinkToImage() {
-      url = changeLinkToImage();
-      
-      const res = await fetch(url);
-      const data = await res.json();
-      return data.urls.regular;
-    }
-    getLinkToImage()
+  async load() {
+    const imageUrl = await getImageUrlUnsplash(getApiUrl(getTimeOfDay(new Date())));
 
-    function changeLinkToImage(){
-      let temp=getTimeOfDay(hours);
-      if (temp=="morning"){
-         url='https://api.unsplash.com/photos/random?orientation=landscape&query=hamster&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac'
-       }
-       else if(temp=="afternoon"){
-        url='https://api.unsplash.com/photos/random?orientation=landscape&query=panda&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac'
-      }
-      else if(temp=="evening"){
-        url='https://api.unsplash.com/photos/random?orientation=landscape&query=racoon&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac'
-      }
-      else if(temp=="night"){
-        url='https://api.unsplash.com/photos/random?orientation=landscape&query=cat&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac'
-      }
-     return url;
+    this.bodyElement.style.backgroundImage = `url(${imageUrl})`;
+  }
 
-    }
-    function getTimeOfDay(hours) {
-        let dayTime;
-        if (hours >= 6 && hours < 12) {
-          dayTime = "morning";
-        }
-        else if (hours >= 12 && hours < 18) {
-          dayTime = "afternoon";
-        }
-        else if (hours >= 18) {
-          dayTime = "evening";
-        }
-        else {
-          dayTime = "night";
-        }
-        return dayTime;
-      }
+  async next() {
+    await this.load();
+  }
 
-    /*function getRandomNum(min, max){
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+  async previous() {
+    await this.load();
+  }
+}
 
-    bgNum=getRandomNum(1,20);*/
+class BackgroundLoaderGithub {
+  constructor(bodyElement) {
+    this.bodyElement = bodyElement;
+    this.imageNumber = null;
+    this.imagesCountStart = 1;
+    this.imagesCountEnd = 20;
+  }
 
-    function setBg(){
-        //let timeOfDay=getTimeOfDay(hours);
-        //const img= new Image();
-        //img.src=`https://raw.githubusercontent.com/renirengi/momentum/assets/${timeOfDay}/${bgNum}.jpg`
-       
-        img.onload=()=>{
-            body.style.backgroundImage = getLinkToImage();
-        }
-    }
-    setBg();
+  async load(imageNumber) {
+    const timeOfDay = getTimeOfDay(new Date());
 
-    /*function getSlideNext(){
-        if(bgNum<20){
-            bgNum=bgNum+1;
-            console.log (bgNum);  
-        }
-        else{
-            bgNum=1;
-        }
-       setBg();
-    }
+    this.imageNumber = imageNumber || getRandomNumer(this.imagesCountStart, this.imagesCountEnd);
 
-    function getSlidePrev(){
-         if(bgNum>1){
-            bgNum=bgNum-1;
-        }
-        else{
-            bgNum=20;
-        }
-       setBg();
-    }
-    
-    
+    const imageUrl = `https://raw.githubusercontent.com/renirengi/momentum/assets/${timeOfDay}/${this.imageNumber}.jpg`;
 
-    slideNext.addEventListener('click', getSlideNext);
-    slidePrev.addEventListener('click', getSlidePrev);*/
-    
-    }
-    
+    this.bodyElement.style.backgroundImage = `url(${imageUrl})`;
+  }
 
+  async next() {
+    const num = this.imageNumber < this.imagesCountEnd ? this.imageNumber + 1 : this.imagesCountStart;
+
+    await this.load(num);
+  }
+
+  async previous() {
+    const num = this.imageNumber > this.imagesCountStart ? this.imageNumber - 1 : this.imagesCountEnd;
+
+    await this.load(num);
+  }
+}
+
+function getTimeOfDay(date) {
+  const hours = date.getHours();
+
+  if (hours >= 6 && hours < 12) {
+    return 'morning';
+  } else if (hours >= 12 && hours < 18) {
+    return 'afternoon';
+  } else if (hours >= 18) {
+    return 'evening';
+  }
+
+  return 'night';
+}
+
+function getApiUrl(timeOfDay) {
+  switch (timeOfDay) {
+    case 'morning':
+      return 'https://api.unsplash.com/photos/random?orientation=landscape&query=hamster&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac';
+    case 'afternoon':
+      return 'https://api.unsplash.com/photos/random?orientation=landscape&query=panda&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac';
+    case 'evening':
+      return 'https://api.unsplash.com/photos/random?orientation=landscape&query=racoon&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac';
+    default:
+      // 'night'
+      return 'https://api.unsplash.com/photos/random?orientation=landscape&query=cat&client_id=AOhct6K9USP53doPu4OXdx0tViHn0WS7EOo3WQT62Ac';
+  }
+}
+
+async function getImageUrlUnsplash(apiUrl) {
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+
+  return data.urls.regular;
+}
+
+function getRandomNumer(min = 1, max = 20) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
