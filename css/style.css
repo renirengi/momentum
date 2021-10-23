@@ -137,6 +137,8 @@ body {
   background-image: url("../assets/svg/slider-next.svg");
 }
 
+
+
 .time {
   min-height: 124px;
   margin-bottom: 10px;
@@ -195,9 +197,95 @@ body {
   padding: 20px;
 }
 
+#myList,
 #setting{
   position: absolute;
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;
+  -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
+}
+
+#myList{
   bottom: 20px;
+  right: 30px;
+  background-image: url("../assets/svg/list.svg");
+}
+
+#myList:hover {
+  opacity: 1;
+}
+
+#myList:active {
+  border: 0;
+  outline: 0;
+  transform: scale(1.1);
+}
+
+.modalList {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  height: 320px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 7000;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s;
+  
+}
+
+.modalList:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalList:target .modalList-body {
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+
+.modalList-close-anchor {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modalList-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modalList-body {
+  position: relative;
+  width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: black;
+  opacity: 0;
+  transform: translate(-100%, 0px);
+  transition: 0.5s;
+}
+
+.closeList-btn{
+  position: absolute;
+  top: 20px;
   left: 30px;
   width: 32px;
   height: 32px;
@@ -210,8 +298,126 @@ body {
   opacity: .8;
   cursor: pointer;
   transition: .3s;
-  background-image: url("../assets/svg/setting.svg");
+  background-image: url("../assets/svg/anchor.svg");
   -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
+}
+
+.closeList-btn:hover {
+  opacity: 1;
+}
+
+.closeList-btn:active {
+  border: 0;
+  outline: 0;
+  transform: scale(1.1);
+}
+
+
+.head {
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+
+.head:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+input {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: #679dad;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  background: #eee;
+  font-size: 18px;
+  color: black;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+ul li:hover {
+  background: #ddd;
+}
+
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #679dad;
+  color: white;
+}
+
+
+#setting{
+  bottom: 20px;
+  left: 30px;
+  background-image: url("../assets/svg/setting.svg");
 }
 
 #setting:hover {
@@ -322,6 +528,7 @@ body {
 }
 
 .switch-btn {
+  display: block;
   left: 43%;
   width: 72px; 
   height: 18px;
@@ -335,6 +542,7 @@ body {
   position: relative;
   transition-duration: 300ms; 
 }
+
 .switch-btn::after {
   content: "";
   height: 12px; 
@@ -346,6 +554,7 @@ body {
   transition-duration: 300ms; 
   z-index: 1;
 }
+
 .switch-on {
   background: #679dad;
 }
