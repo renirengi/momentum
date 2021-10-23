@@ -1,8 +1,15 @@
-export function initWeather() {
-  window.addEventListener('load', () => loadWeather());
+export function initWeather(loaderLang) {
+  let lang;
+  if(loaderLang=='rus'){
+    lang='rus';
+  }
+  else{
+    lang='eng';
+  }
+  window.addEventListener('load', () => loadWeather(lang));
 }
 
-function loadWeather() {
+function loadWeather(lang) {
   const weatherIcon = document.querySelector('.weather-icon');
   const temperature = document.querySelector('.temperature');
   const weatherDescription = document.querySelector('.weather-description');
@@ -12,9 +19,9 @@ function loadWeather() {
 
   const city = document.querySelector('.city');
 
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&lang=en&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&${lang}&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
 
-  async function getWeather() {
+  async function getWeather(lang) {
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -40,7 +47,7 @@ function loadWeather() {
 
   city.addEventListener('change', () => {
     console.log(city.value);
-    url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
+    url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&${lang}&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
     getWeather(url);
 
     const town = city.value.trim();

@@ -13,6 +13,11 @@ function initClock() {
 
   const input = document.querySelector('.name');
 
+  /*const greetingTranslation={
+    ru:`Good ${timeOfDay}`,
+    eng: `Добрый ${timeOfDay}`
+  }*/
+
   input.addEventListener('change', () => {
     const name = input.value.trim();
     if (name.length > 0) {
