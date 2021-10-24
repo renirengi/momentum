@@ -15,31 +15,41 @@ function loadSetting(){
     const switchBtn = document.querySelectorAll('.switch-btn');
     let lang;
     let loaderName;
-    
-     for (let i=0; i<switchBtn.length; i++){
-         switchBtn[i].addEventListener('click', () => changeSetting());
-     }
-  
 
-    function changeSetting(){
-        changeSettingLanguage();
-        changeSettingBackGround();
+    switchBtn[0].addEventListener('click', ()=>changeSettingLanguage());
+    switchBtn[1].addEventListener('click', ()=>changeSettingLanguage());
+    switchBtn[2].addEventListener('click',()=> {
        
+       if( !gitHub.classList.contains('switch-on')){
+        gitHub.classList.add('switch-on');
+       }
+        unsplash.classList.remove('switch-on');
+        flickr.classList.remove('switch-on');
     }
+    )
+    switchBtn[3].addEventListener('click',()=> {
+        gitHub.classList.remove('switch-on');
+        if( !unsplash.classList.contains('switch-on')){
+            unsplash.classList.add('switch-on');
+           }
+        flickr.classList.remove('switch-on');
+    } )
+    switchBtn[4].addEventListener('click',()=> {
+        gitHub.classList.remove('switch-on');
+        unsplash.classList.remove('switch-on');
+        if( !flickr.classList.contains('switch-on')){
+            flickr.classList.add('switch-on');
+           }
+    } )
 
+    
     function changeSettingLanguage(){
         eng.classList.toggle('switch-on');
         rus.classList.toggle('switch-on');
         getLanguage();
     }
 
-    function changeSettingBackGround(){
-        gitHub.classList.toggle('switch-on');
-        unsplash.classList.toggle('switch-on');
-        flickr.classList.toggle('switch-on');
-        getBackGround();
-    }
- 
+     
     function getLanguage(){
     if(eng.classList.contains('switch-on')){
             lang="eng";
@@ -68,13 +78,14 @@ function loadSetting(){
     }
     getBackGround();
 
-   /*function getLocalStorage() {
-        loaderLang = localStorage.getItem('language');
-        /*if (loaderLang) {
+   function getLocalStorage() {
+       console.log(localStorage.getItem('language'));
+        /*loaderLang = localStorage.getItem('language');
+        if (loaderLang) {
           language.value = loaderLang;
         }
-        console.log(loaderLang);
+        console.log(loaderLang);*/
       }
-      getLocalStorage();/*/
+      getLocalStorage();
 }
     

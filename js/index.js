@@ -5,11 +5,11 @@ import { initQuote } from './quote.js';
 import { AudioPlayerComponent } from './audio-player.component.js';
 import { initToDoList } from './toDoList.js';
 import {initSetting} from './setting.js';
-import { TranslateService } from './translate.service.js';
+///import { TranslateService } from './translate.service.js';
 
-const translate = TranslateService.getInstance();
+///const translate = TranslateService.getInstance();
 
-translate.setLocale('en');
+//translate.setLocale('en');
 
 
 initClockAndCalendar();
