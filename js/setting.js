@@ -30,6 +30,11 @@ function loadSetting(){
 
     closeBtn.addEventListener('click', ()=>{
         getLanguage();
+        let r = location.href;
+        console.log(r);
+        r = r.split("#")[0];
+        console.log(r);
+        location.replace(r);
     })
 
     setting.addEventListener('click',()=>{
