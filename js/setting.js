@@ -21,24 +21,35 @@ function loadSetting(){
     const welcome=document.querySelector(".greeting-container");
     const list=document.querySelector(".myList");
     
+    
     const switchBtn = document.querySelectorAll('.switch-btn');
     const closeBtn=document.querySelector(".close-btn");
     const setting=document.getElementById('setting');
-    console.log('setting');
+   
     let lang;
     let loaderName;
+    let hid={
+        weather: false,
+        quote: false,
+        audio: false,
+        clock: false,
+        date: false,
+        welcome: false,
+        toDoList: false,
+    }
+
 
     closeBtn.addEventListener('click', ()=>{
         getLanguage();
+        getBackGround();
         let r = location.href;
-        console.log(r);
         r = r.split("#")[0];
-        console.log(r);
         location.replace(r);
     })
 
     setting.addEventListener('click',()=>{
-        getLocalStorage();
+        getLocalStorageLang();
+        getLocalStorageBackground();
     })
 
     switchBtn[0].addEventListener('click', ()=>changeSettingLanguage());
@@ -68,32 +79,33 @@ function loadSetting(){
     } )
     switchBtn[5].addEventListener('click',()=> {
         weather.classList.toggle('hiddenContent');
+        switchBtn[5].classList.toggle('switch-on');
        
     } )
     switchBtn[6].addEventListener('click',()=> {
         quoteContainer.classList.toggle('hiddenContent');
         quoteButton.classList.toggle('hiddenContent');
-      
+        switchBtn[6].classList.toggle('switch-on');
     } )
     switchBtn[7].addEventListener('click',()=> {
         audio.classList.toggle('hiddenContent');
-       
+        switchBtn[7].classList.toggle('switch-on');
     } )
     switchBtn[8].addEventListener('click',()=> {
         time.classList.toggle('hiddenContent');
-       
+        switchBtn[8].classList.toggle('switch-on');
     } )
     switchBtn[9].addEventListener('click',()=> {
         date.classList.toggle('hiddenContent');
-       
+        switchBtn[9].classList.toggle('switch-on');
     } )
     switchBtn[10].addEventListener('click',()=> {
         welcome.classList.toggle('hiddenContent');
-       
+        switchBtn[10].classList.toggle('switch-on');
     } )
     switchBtn[11].addEventListener('click',()=> {
         list.classList.toggle('hiddenContent');
-        
+        switchBtn[11].classList.toggle('switch-on');
     } )
     
 
@@ -131,9 +143,9 @@ function loadSetting(){
         localStorage.setItem('background', loaderName);
         return loaderName;
     }
-    getBackGround();
+    ;
 
-   function getLocalStorage() {
+   function getLocalStorageLang() {
        console.log(localStorage.getItem('language'));
        if(localStorage.getItem('language')=='eng'){
            if(!eng.classList.contains('switch-on')){
@@ -149,6 +161,33 @@ function loadSetting(){
        }
        
       }
-      getLocalStorage();
+      getLocalStorageLang();
+
+      function getLocalStorageBackground() {
+        console.log(localStorage.getItem('background'));
+        if(localStorage.getItem('background')=='gitHub'){
+            if(!gitHub.classList.contains('switch-on')){
+             unsplash.classList.remove('switch-on');
+             flickr.classList.remove('switch-on');
+             gitHub.classList.add('switch-on');
+            }
+                
+        }
+        else if(localStorage.getItem('background')=='unsplash'){
+         if(!unsplash.classList.contains('switch-on')){}
+         gitHub.classList.remove('switch-on');
+         flickr.classList.remove('switch-on');
+         unsplash.classList.add('switch-on');
+        }
+
+        else if(localStorage.getItem('background')=='flickr'){
+            if(!flickr.classList.contains('switch-on')){}
+            gitHub.classList.remove('switch-on');
+            unsplash.classList.remove('switch-on');
+            flickr.classList.add('switch-on');
+           }
+        
+       }
+       getLocalStorageBackground();
 }
     
