@@ -10,8 +10,8 @@
   </head>
   <body>
     <header class="header">
-      <audio-player></audio-player>
-      <div class="weather">
+      <audio-player class="audio block"></audio-player>
+      <div class="weather block">
         <input type="text" class="city" value="Minsk" />
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
@@ -28,15 +28,16 @@
         <button class="slide-prev slider-icon"></button>
         <button class="slide-next slider-icon"></button>
       </div>
-      <time class="time"></time>
-      <date class="date"></date>
-      <div class="greeting-container">
+      <time class="time block"></time>
+      <date class="date block"></date>
+      <div class="greeting-container block">
         <span class="greeting"></span>
         <input type="text" class="name" />
       </div>
     </main>
     <footer class="footer">
-      <a href="#modalList" id="myList"></a>
+      <div class="myList">
+      <a href="#modalList" id="myList" class="block"></a>
         <div id="modalList" class="modalList">
           <a href="#modalList-close-anchor" class="modalList-close"></a>
           <div class="modalList-body">
@@ -55,7 +56,7 @@
               </ul>
             </div>
         </div>
-      
+      </div>
       <a href="#modal" id="setting"></a>
       <div id="modal" class="modal">
         <a href="#modal-close-anchor" class="modal-close"></a>
@@ -86,6 +87,10 @@
               <div class="switch-btn"></div>
               <span>Audio-player/Аудио-плеер</span>
               <div class="switch-btn"></div>
+              <span>Clock/Часы</span>
+              <div class="switch-btn"></div>
+              <span>Date/Дата</span>
+              <div class="switch-btn"></div>
               <span>Welcome/Приветствие</span>
               <div class="switch-btn"></div>
               <span>To-do list/Список дел</span>
@@ -94,8 +99,8 @@
           </div>
         </div>
       </div>
-      <button class="change-quote"></button>
-      <div>
+      <button class="change-quote block"></button>
+      <div class="quote-container block">
         <div class="quote"></div>
         <div class="author"></div>
       </div>

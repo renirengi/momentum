@@ -25,7 +25,7 @@ export function initQuote() {
  
 
  function languageLoaderEng(){
- console.log("eng");
+
   async function getQuotes() {  
       const quotes = '../assets/dataEng.json';
       const res = await fetch(quotes);

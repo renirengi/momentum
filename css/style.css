@@ -235,7 +235,7 @@ body {
   bottom: 0;
   right: 0;
   width: 500px;
-  height: 320px;
+  height: 580px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 7000;
   display: flex;
@@ -435,7 +435,7 @@ ul li.checked::before {
   bottom: 0;
   left: 0;
   width: 500px;
-  height: 320px;
+  height: 580px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 7000;
   display: flex;
@@ -475,7 +475,7 @@ ul li.checked::before {
 .modal-body {
   position: relative;
   width: 500px;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   background-color: black;
   opacity: 0;
@@ -574,6 +574,26 @@ ul li.checked::before {
 .author {
   min-height: 20px;
 }
+
+.block {
+  opacity: 1;
+  transition:
+    opacity 0.5s ease-in 0.5s,
+    width 0.5s ease,
+    height 0.5s ease;
+}
+
+.hiddenContent {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  transition:
+    opacity 0.5s ease-out,
+    width 0.5s ease 0.5s,
+    height 0.5s ease 0.5s;
+}
+
+
 
 @media (max-width: 768px) {
   .time {
