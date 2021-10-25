@@ -1,9 +1,14 @@
-export function initSlider(loaderName) {
+import { SettingsService } from './settings.service.js';
+
+export function initSlider() {
+  const settings = SettingsService.getInstance();
+  const loaderName = settings.backgroundSource;
   const loaders = {
     unsplash: BackgroundLoaderUnsplash,
     github: BackgroundLoaderGithub,
     flickr: BackgroundLoaderFlickr
   };
+
   const bodyElement = document.querySelector('body');
   const nextElement = document.querySelector('.slide-next');
   const previousElement = document.querySelector('.slide-prev');
@@ -139,7 +144,7 @@ async function getImageUrlFlickr(apiUrlFlickr) {
   const res = await fetch(apiUrlFlickr);
   const data = await res.json();
 
-  return data.urls.regular;
+  return data.photos.photo[getRandomNumer(0, 99)].url_l;
 }
 
 function getRandomNumer(min = 1, max = 20) {

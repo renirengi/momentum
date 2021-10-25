@@ -3,21 +3,21 @@ import { initSlider } from './slider.js';
 import { initWeather } from './weather.js';
 import { initQuote } from './quote.js';
 import { AudioPlayerComponent } from './audio-player.component.js';
+import { SettingsComponent } from './settings.component.js';
 import { initToDoList } from './toDoList.js';
-import {initSetting} from './setting.js';
-///import { TranslateService } from './translate.service.js';
+import { TranslateService } from './translate.service.js';
+import { SettingsService } from './settings.service.js';
 
-///const translate = TranslateService.getInstance();
+const settings = SettingsService.getInstance();
+const translate = TranslateService.getInstance();
 
-//translate.setLocale('en');
-
+translate.setLocale(settings.language);
 
 initClockAndCalendar();
 initSlider();
 initWeather();
 initQuote();
 initToDoList();
-initSetting();
-
 
 window.customElements.define('audio-player', AudioPlayerComponent);
+window.customElements.define('app-settings', SettingsComponent);

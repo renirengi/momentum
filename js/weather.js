@@ -1,114 +1,56 @@
-export function initWeather(loaderLang) {
-  let lang;
-  ///let loaderLang;
- 
-  function getLocalStorage() {
-    loaderLang = localStorage.getItem('language');
-    console.log(loaderLang);
-    return loaderLang;
-  }
-  getLocalStorage();
+import { SettingsService } from './settings.service.js';
+import { TranslateService } from './translate.service.js';
 
-  if (!loaderLang)
-    lang="eng";
-    else
-    {
-      if (loaderLang == 'rus')
-        lang='rus';
-      else
-        lang='eng';
-    }
-  
-  window.addEventListener('load', () => loadWeather(lang));
-}
+export function initWeather() {
+  const settings = SettingsService.getInstance();
+  const translate = TranslateService.getInstance();
+  const language = translate.getLocale();
 
-function loadWeather(lang) {
-  const weatherIcon = document.querySelector('.weather-icon');
-  const temperature = document.querySelector('.temperature');
-  const weatherDescription = document.querySelector('.weather-description');
-  const weatherError=document.querySelector('.weather-error');
-  const wind = document.querySelector('.wind');
-  const humidity = document.querySelector('.humidity');
-  let url;
-  const city = document.querySelector('.city');
+  const weatherIconElement = document.querySelector('.weather-icon');
+  const temperatureElement = document.querySelector('.temperature');
+  const weatherDescriptionElement = document.querySelector('.weather-description');
+  const weatherErrorElement = document.querySelector('.weather-error');
+  const windElement = document.querySelector('.wind');
+  const humidityElement = document.querySelector('.humidity');
+  const cityElement = document.querySelector('.city');
 
-  if (lang==="eng"){
-    url=`https://api.openweathermap.org/data/2.5/weather?q=London&lang=eng&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
-    document.getElementById('city').placeholder = 'London';
-    //document.getElementById('city').value = 'London';
-    getWeatherEng();
+  const applyWheather = async (city) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${language.substring(0, 2)}&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
+    const windText = await translate.translate('weatherWind');
+    const humidityText = await translate.translate('weatherHumidity');
+    const errorMsg = await translate.translate('weatherError');
 
-    
-  }else{
-    url=`https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=ru&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
-    document.getElementById('city').placeholder = 'Минск';
-    //document.getElementById('city').value = 'Минск';
-    getWeatherRus();
-
-   }
-      
-  
-  
-  async function getWeatherEng() {
     try {
       const res = await fetch(url);
       const data = await res.json();
 
-      weatherIcon.className = 'weather-icon owf';
-      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      temperature.textContent = `${Math.round(data.main.temp)}°C`;
-      weatherDescription.textContent = data.weather[0].description;
-      wind.textContent = `Wind ${Math.round(data.wind.speed)} meter per second`;
-      humidity.textContent = `Humidity ${Math.round(data.main.humidity)}%`;
-      
+      weatherIconElement.className = 'weather-icon owf';
+      weatherIconElement.classList.add(`owf-${data.weather[0].id}`);
+      temperatureElement.textContent = `${Math.round(data.main.temp)}°C`;
+      weatherDescriptionElement.textContent = data.weather[0].description;
+      windElement.textContent = `${windText} ${Math.round(data.wind.speed)} meter per second`;
+      humidityElement.textContent = `${humidityText} ${Math.round(data.main.humidity)}%`;
+
+      return true;
     } catch (e) {
-      weatherError.textContent= 'Error! Cannot read this properties!';
-      ///city.value="Minsk";
-      getWeatherEng();
+      weatherErrorElement.textContent = errorMsg;
 
+      return false;
+    }
+  };
+
+  const changeCity = async () => {
+    const city = cityElement.value.trim();
+
+    if (city.length > 0) {
+      if (await applyWheather(city)) {
+        settings.city = city;
+      }
     }
   }
 
-  async function getWeatherRus() {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      weatherIcon.className = 'weather-icon owf';
-      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      temperature.textContent = `${Math.round(data.main.temp)}°C`;
-      weatherDescription.textContent = data.weather[0].description;
-      wind.textContent = `Ветер ${Math.round(data.wind.speed)} м/c`;
-      humidity.textContent = `Влажность ${Math.round(data.main.humidity)}%`;
-      
-    } catch (e) {
-      weatherError.textContent= 'Ошибка! Невозможно прочитать значение!';
-      ///city.value="Minsk";
-      getWeatherRus();
-
-    }
-  }
-  
- 
-
-  city.addEventListener('change', () => {
-    console.log(city.value);
-    url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&=${lang}&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
-    getWeather(url);
-
-    const town = city.value.trim();
-    if (town.length > 0) {
-      localStorage.setItem('city', town);
-    }
-
-  });
-
-  function getLocalStorage() {
-    const town = localStorage.getItem('city');
-    if (town) {
-      city.value = town;
-    }
-  }
-  getLocalStorage();
+  cityElement.placeholder = settings.city;
+  applyWheather(settings.city);
+  cityElement.addEventListener('change', () => changeCity());
 
 }

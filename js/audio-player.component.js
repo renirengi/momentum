@@ -216,7 +216,6 @@ export class AudioPlayerComponent extends HTMLElement {
 
   #updateActivePlayListItem() {
     const activeItemClassName = 'active';
-    console.log(this.audioState.currentItemIndex)
 
     this.playListItemElements.forEach((element) => element.classList.remove(activeItemClassName));
     this.playListItemElements[this.audioState.currentItemIndex].classList.add(activeItemClassName);

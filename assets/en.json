@@ -1,4 +1,7 @@
 {
+  "weatherWind": "Wind",
+  "weatherHumidity": "Humidity",
+  "weatherError": "Error! Cannot read this properties!",
   "quote1text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
   "quote1author": "Nelson Mandela",
   "quote2text": "The way to get started is to quit talking and begin doing.",

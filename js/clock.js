@@ -1,10 +1,12 @@
+import { SettingsService } from './settings.service.js';
+import { TranslateService } from './translate.service.js';
 
 export function initClockAndCalendar() {
- window.addEventListener('load', () => initClock());
-}
+ //window.addEventListener('load', () => initClock());
+ const settings = SettingsService.getInstance();
+  const translate = TranslateService.getInstance();
+  const language = translate.getLocale();
 
-
-function initClock() {
   const time = document.querySelector('.time');
   const day = document.querySelector('.date');
 
@@ -12,26 +14,23 @@ function initClock() {
   const greeting = document.querySelector('.greeting');
 
   const input = document.querySelector('.name');
+  
 
-  /*const greetingTranslation={
-    ru:`Good ${timeOfDay}`,
-    eng: `Добрый ${timeOfDay}`
-  }*/
-
-  input.addEventListener('change', () => {
+input.addEventListener('change', () => {
     const name = input.value.trim();
     if (name.length > 0) {
-      localStorage.setItem('input', name);
+      settings.name = name;
     }
   });
 
-  function getLocalStorage() {
-    const name = localStorage.getItem('input');
+  function getName() {
+    const name = settings.name;
     if (name) {
       input.value = name;
     }
   }
-  getLocalStorage();
+
+  getName();
 
   function showTime() {
     const date = new Date();
@@ -44,17 +43,41 @@ function initClock() {
   showTime();
 
   function showDate() {
+    let currentDate;
     const date = new Date();
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    const currentDate = date.toLocaleDateString('en-Br', options);
+    if(language==="rus"){
+      currentDate = date.toLocaleDateString('ru-Br', options);
+    }
+    else{
+      currentDate = date.toLocaleDateString('eng-Br', options);
+    }
+    
     day.textContent = currentDate;
   }
 
   function showGreeting() {
+    let greetingText;
     const date = new Date();
     const hours = date.getHours();
     const timeOfDay = getTimeOfDay(hours);
-    const greetingText = `Good ${timeOfDay}`;
+    if(language==='eng'){
+      greetingText = `Good ${timeOfDay}`;
+    }
+    else{
+      if(dayTime=="morning"){
+        greetingText="Доброе утро";
+      }
+      else if(dayTime=="afternoon"){
+        greetingText="Добрый день";
+      }
+      else if(dayTime=="evening"){
+        greetingText="Добрый вечер";
+      }
+      
+    
+    }
+     
     greeting.textContent = greetingText;
   }
 
@@ -74,6 +97,22 @@ function initClock() {
     }
     return dayTime;
   }
+
+
+
+
+
+
+
+}
+
+
+function initClock() {
+  const settings = SettingsService.getInstance();
+  
+
+  
+  
 
 
 

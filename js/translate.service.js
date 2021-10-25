@@ -1,14 +1,14 @@
 const locales = {
-  en: '../assets/en.json',
-  ru: '../assets/ru.json'
+  eng: '../assets/en.json',
+  rus: '../assets/ru.json',
 };
 
 export class TranslateService {
   static service;
 
-/**
- * Don't use it! Use getInstance instead.
- */
+  /**
+   * Don't use it! Use getInstance instead.
+   */
   constructor() {}
 
   static getInstance() {
@@ -19,7 +19,7 @@ export class TranslateService {
   }
 
   /**
-   * Apply available locale 'en' or 'ru'
+   * Apply available locale 'eng' or 'rus'
    */
   setLocale(locale) {
     const localeUrl = locales[locale];
@@ -31,13 +31,9 @@ export class TranslateService {
     this.translationsPromise = this.#loadLocale(localeUrl);
   }
 
- /* getLocal() {
-    const locale = localStorage.getItem('language');
-    if (locale) {
-      language.value = locale;
-    }
-  }*/
-  
+  getLocale() {
+    return this.locale;
+  }
 
   async translate(key) {
     if (this.translationsPromise) {
@@ -53,5 +49,4 @@ export class TranslateService {
   async #loadLocale(url) {
     return fetch(url).then((res) => res.json());
   }
-
 }
