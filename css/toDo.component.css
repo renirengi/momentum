@@ -1,82 +1,7 @@
-.show-modalList{
-    display: block;
-    border: none;
-    background: url('../assets/svg/list.svg');
-    background-size: contain;
-    width: 32px;
-    height: 32px;
-    -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
-}
+@import url(modal.css);
 
-
-.show-modalList:hover {
-  opacity: 1;
-}
-
-.show-modalList:active {
-  border: 0;
-  outline: 0;
-  transform: scale(1.1);
-}
-
-.modalList {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  max-width: 300px;
-  height: 450px;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 7000;
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.5s;
-
-}
-
-.modalList-body {
-  position: relative;
-  max-width: 300px;
-  height: 100%;
-  margin: 0 auto;
-  background-color: black;
-}
-
-.modalList:target {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modalList:target .modalList-body {
-  opacity: 1;
-  transform: translate(0px, 0px);
-}
-
-.modalList-close-anchor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.modalList-close {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-
-
-.closeList-btn{
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  width: 32px;
-  height: 32px;
+.show-modal {
+  background-image: url('../assets/svg/list.svg');
   background-size: 32px 32px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -85,19 +10,14 @@
   outline: 0;
   opacity: .8;
   cursor: pointer;
-  transition: .3s;
-  background-image: url("../assets/svg/anchor.svg");
   -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
 }
 
-.closeList-btn:hover {
-  opacity: 1;
-}
-
-.closeList-btn:active {
-  border: 0;
-  outline: 0;
-  transform: scale(1.1);
+.modal {
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 500px;
 }
 
 

@@ -11,9 +11,9 @@ export class SettingsComponent extends HTMLElement {
     const template = `
       <link href="./css/settings.component.css" rel="stylesheet" type="text/css">
       <button class="show-modal"></button>
-      <div class="modal">
+      <div class="modal settings-modal">
         <div class="modal-body">
-          <button class="close-btn"></button>
+          <button class="close-btn close-settings"></button>
           <form name="settingsForm">
             <p>Language / Язык<p>
 
@@ -41,7 +41,7 @@ export class SettingsComponent extends HTMLElement {
     `;
 
     this.shadow.innerHTML = template;
-    this.modalElement = this.shadow.querySelector('.modal');
+    this.modalElement = this.shadow.querySelector('.settings-modal');
     this.languageElements = this.shadow.querySelectorAll('input[name="language"]');
     this.backgroundElements = this.shadow.querySelectorAll('input[name="background"]');
     this.hiddenElements = this.shadow.querySelectorAll('input[name="hidden"]');
@@ -49,7 +49,7 @@ export class SettingsComponent extends HTMLElement {
     this.#loadSettings();
 
     this.shadow.querySelector('.show-modal').addEventListener('click', () => this.#toggleModal());
-    this.shadow.querySelector('.close-btn').addEventListener('click', () => this.#toggleModal());
+    this.shadow.querySelector('.close-settings').addEventListener('click', () => this.#toggleModal());
 
     this.languageElements.forEach((el) => el.addEventListener('click', () => this.#saveLanguage()));
     this.backgroundElements.forEach((el) => el.addEventListener('click', () => this.#saveBackgroundSource()));
