@@ -75,7 +75,10 @@ class BackgroundLoaderGithub {
 
     const imageUrl = `https://raw.githubusercontent.com/renirengi/momentum/assets/${timeOfDay}/${this.imageNumber}.jpg`;
 
-    this.bodyElement.style.backgroundImage = `url(${imageUrl})`;
+    const img = new Image();
+
+    img.onload = () => this.bodyElement.style.backgroundImage = `url(${imageUrl})`;
+    img.src = imageUrl;
   }
 
   async next() {
