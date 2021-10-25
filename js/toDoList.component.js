@@ -29,22 +29,7 @@ export class ToDoListComponent extends HTMLElement {
 
     this.shadow.querySelector('.show-modal').addEventListener('click', () => this.#toggleModal());
     this.shadow.querySelector('.close-todo').addEventListener('click', () => this.#toggleModal());
-    this.shadow.querySelector('.add-task').addEventListener('click', () => {
-      const tasks = this.settings.toDoList;
-      const title = this.shadow.querySelector('.task-title').value.trim();
-
-      if (title) {
-        const taskExists = this.settings.toDoList.find((task) => task.title === title);
-
-        if (!taskExists) {
-          tasks.push({title});
-          this.settings.toDoList = tasks;
-          this.#addTaskElement(title);
-        } else {
-          console.error('Task is already added');
-        }
-      }
-    });
+    this.shadow.querySelector('.add-task').addEventListener('click', () => this.#addTask());
   }
 
   #toggleModal() {
@@ -57,24 +42,47 @@ export class ToDoListComponent extends HTMLElement {
     tasks.forEach((task) => this.#addTaskElement(task.title, task.done));
   }
 
+  #addTask() {
+    const taskTitleElement = this.shadow.querySelector('.task-title');
+    const tasks = this.settings.toDoList;
+    const title = taskTitleElement.value.trim();
+
+    if (title) {
+      const taskExists = this.settings.toDoList.find((task) => task.title === title);
+
+      if (!taskExists) {
+        tasks.push({ title });
+        this.settings.toDoList = tasks;
+        this.#addTaskElement(title);
+      } else {
+        console.error('Task is already added');
+      }
+    }
+
+    taskTitleElement.value = '';
+  }
+
   #addTaskElement(title, done = false) {
     const liElement = document.createElement('li');
+    const removeButton = document.createElement('button');
 
-    liElement.textContent = title;
+    removeButton.textContent = '✖';
+    liElement.textContent = `${title} `;
+    liElement.appendChild(removeButton);
 
     if (done) {
       liElement.classList.add('done');
     }
 
-    liElement.addEventListener('click', (e) => this.#toggleTaskDone(e))
+    liElement.addEventListener('click', (e) => this.#toggleTaskDone(e, title));
+    removeButton.addEventListener('click', (e) => this.#removeTask(e, title));
 
     this.taskListElement.appendChild(liElement);
   }
 
-  #toggleTaskDone(e) {
+  #toggleTaskDone(e, title) {
     const tasks = this.settings.toDoList;
-    const taskTitle = e.target.textContent;
-    const task = tasks.find((task) => task.title === taskTitle);
+    const task = tasks.find((task) => task.title === title);
 
     if (task) {
       task.done = !task.done;
@@ -86,5 +94,11 @@ export class ToDoListComponent extends HTMLElement {
         e.target.classList.remove('done');
       }
     }
+  }
+
+  #removeTask(e, title) {
+    e.stopPropagation();
+    this.settings.toDoList = this.settings.toDoList.filter((item) => item.title !== title);
+    e.target.parentElement.remove();
   }
 }

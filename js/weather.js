@@ -15,7 +15,8 @@ export function initWeather() {
   const cityElement = document.querySelector('.city');
 
   const applyWheather = async (city) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${language.substring(0, 2)}&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
+    const lang = language.substring(0, 2);
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&appid=a5f7f90d7243a182a947965d9ece2df6&units=metric`;
     const windText = await translate.translate('weatherWind');
     const humidityText = await translate.translate('weatherHumidity');
     const errorMsg = await translate.translate('weatherError');
@@ -47,10 +48,9 @@ export function initWeather() {
         settings.city = city;
       }
     }
-  }
+  };
 
   cityElement.placeholder = settings.city;
   applyWheather(settings.city);
   cityElement.addEventListener('change', () => changeCity());
-
 }

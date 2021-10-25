@@ -34,19 +34,19 @@ export class AudioPlayerComponent extends HTMLElement {
     this.shadow.innerHTML = template;
 
 
-    /* Text elements */
+    
     this.songNameElement = this.shadow.querySelector('.song-name');
     this.currentTimeElement = this.shadow.getElementById('curr-time');
     this.durationTimeElement = this.shadow.getElementById('duration');
     this.playListElement = this.shadow.querySelector('.play-list');
 
-    /* Buttons */
+    
     this.playPauseButtonElement = this.shadow.querySelector('.action');
     this.previousButtonElement = this.shadow.querySelector('.play-prev');
     this.nextButtonElement = this.shadow.querySelector('.play-next');
     this.muteButtonElement = this.shadow.getElementById('mute');
 
-    /* Bars */
+    
     this.progressBarElement = this.shadow.getElementById('progress-bar');
     this.volumeScaleElement = this.shadow.querySelector('.volume');
 
@@ -68,13 +68,13 @@ export class AudioPlayerComponent extends HTMLElement {
   }
 
   #loadAudioTrack(index = 0, autoplay = false) {
-    // Pause track
+    
     this.audio.pause();
     this.audioState.playing = false;
-    // Set new track to state and load it's params
+    
     this.#setCurrentSong(index);
     const currentTrackParams = this.#getCurrentSong();
-    // Apply updated params
+    
     this.audio.src = currentTrackParams.src;
     this.#updateCurrentSongTitle();
     this.#updateActivePlayListItem();

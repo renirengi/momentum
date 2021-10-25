@@ -54,7 +54,7 @@
   height: 100%;
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
   top: 20px;
   right: 30px;
@@ -66,10 +66,10 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
-  background-image: url("../assets/svg/anchor.svg");
+  transition: 0.3s;
+  background-image: url('../assets/svg/anchor.svg');
   -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
 }
 

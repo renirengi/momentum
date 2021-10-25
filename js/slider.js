@@ -6,13 +6,13 @@ export function initSlider() {
   const loaders = {
     unsplash: BackgroundLoaderUnsplash,
     github: BackgroundLoaderGithub,
-    flickr: BackgroundLoaderFlickr
+    flickr: BackgroundLoaderFlickr,
   };
 
   const bodyElement = document.querySelector('body');
   const nextElement = document.querySelector('.slide-next');
   const previousElement = document.querySelector('.slide-prev');
-  const selectedLoader = loaderName && loaders[loaderName] || BackgroundLoaderGithub;
+  const selectedLoader = (loaderName && loaders[loaderName]) || BackgroundLoaderGithub;
   const backgroundLoader = new selectedLoader(bodyElement);
 
   window.addEventListener('load', () => backgroundLoader.load());
@@ -77,7 +77,7 @@ class BackgroundLoaderGithub {
 
     const img = new Image();
 
-    img.onload = () => this.bodyElement.style.backgroundImage = `url(${imageUrl})`;
+    img.onload = () => (this.bodyElement.style.backgroundImage = `url(${imageUrl})`);
     img.src = imageUrl;
   }
 
@@ -122,7 +122,7 @@ function getApiUrl(timeOfDay) {
   }
 }
 
-function getApiUrlFlickr(timeOfDay){
+function getApiUrlFlickr(timeOfDay) {
   switch (timeOfDay) {
     case 'morning':
       return 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=a40a886174b38a63bae7ca4e1bf241cb&tags=morning&extras=url_l&format=json&nojsoncallback=1';

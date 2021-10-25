@@ -44,9 +44,11 @@ function showHideComponent(element, shouldBeShown) {
   const shownClass = 'showIt';
   const elementIsAlreadyShown = element && element.classList.contains(shownClass);
 
-  if (elementIsAlreadyShown && !shouldBeShown) { // hide
+  if (elementIsAlreadyShown && !shouldBeShown) {
+    // hide
     element.classList.remove(shownClass);
-  } else if (!elementIsAlreadyShown && shouldBeShown) { // hide
+  } else if (!elementIsAlreadyShown && shouldBeShown) {
+    // hide
     element.classList.add(shownClass);
   }
 }

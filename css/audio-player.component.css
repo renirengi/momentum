@@ -15,9 +15,9 @@
   padding: 5px;
   padding-left: 20px;
   list-style: none;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .play-list li:hover {
@@ -25,7 +25,7 @@
 }
 
 .play-list li::before {
-  content: "\2713";
+  content: '\2713';
   position: absolute;
   left: 0;
   top: 2px;
@@ -33,7 +33,7 @@
 }
 
 .play-list li::before {
-  color: #C5B358;
+  color: #c5b358;
 }
 
 .play-list li.active::before {
@@ -43,7 +43,7 @@
 .player-icon,
 .slider-icon,
 .change-quote,
-.mute .true{
+.mute .true {
   width: 32px;
   height: 32px;
   background-size: 32px 32px;
@@ -52,9 +52,9 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .player-icon:hover,
@@ -71,26 +71,26 @@
   transform: scale(1.1);
 }
 
-.action.play{
+.action.play {
   width: 40px;
   height: 40px;
   background-size: 40px 40px;
-  background-image: url("../assets/svg/play.svg");
+  background-image: url('../assets/svg/play.svg');
 }
 
 .action.pause {
-  background-image: url("../assets/svg/pause.svg");
+  background-image: url('../assets/svg/pause.svg');
 }
 
 .play-prev {
-  background-image: url("../assets/svg/play-prev.svg");
+  background-image: url('../assets/svg/play-prev.svg');
 }
 
 .play-next {
-  background-image: url("../assets/svg/play-next.svg");
+  background-image: url('../assets/svg/play-next.svg');
 }
 
-.mute.true{
+.mute.true {
   width: 20px;
   height: 20px;
   background-size: 20px 20px;
@@ -99,14 +99,13 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
-  background-image: url("../assets/svg/Volume.svg");
+  transition: 0.3s;
+  background-image: url('../assets/svg/Volume.svg');
 }
 
-
-.mute.false{
+.mute.false {
   width: 20px;
   height: 20px;
   background-size: 20px 20px;
@@ -115,23 +114,22 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
-  background-image: url("../assets/svg/Volume_off.svg") ;
+  transition: 0.3s;
+  background-image: url('../assets/svg/Volume_off.svg');
 }
 
 .curr-time,
-.duration{
+.duration {
   font-size: small;
 }
 
-.song-name{
-font-size: small;
-margin-left: 10px;
-width:100px;
-margin-left: 40%;
-
+.song-name {
+  font-size: small;
+  margin-left: 10px;
+  width: 100px;
+  margin-left: 40%;
 }
 
 .progress-bar {

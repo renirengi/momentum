@@ -1,4 +1,3 @@
-
 import { TranslateService } from './translate.service.js';
 
 export async function initQuote() {
@@ -13,7 +12,7 @@ export async function initQuote() {
 
     quoteElement.textContent = quoteText;
     authorElement.textContent = quoteAuthor;
-  }
+  };
 
   changeQuoteElement.addEventListener('click', () => updateQuote());
 

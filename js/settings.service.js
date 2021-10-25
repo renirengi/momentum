@@ -4,8 +4,8 @@ const defaultSettigs = {
   listOfHiddenElements: [],
   city: 'Минск',
   name: null,
-  toDoList: [] // { title: 'test', done: true }
-}
+  toDoList: [], // { title: 'test', done: true }
+};
 
 const settingsName = 'settings';
 
@@ -39,6 +39,11 @@ export class SettingsService {
 
   set language(lang) {
     this.settings.language = lang;
+    if (lang === 'rus') {
+      this.settings.city = 'Минск';
+    } else {
+      this.settings.city = 'London';
+    }
     this.#saveSettings();
   }
 
@@ -91,5 +96,4 @@ export class SettingsService {
   #saveSettings() {
     localStorage.setItem(settingsName, JSON.stringify(this.settings));
   }
-
 }
