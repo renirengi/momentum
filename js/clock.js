@@ -65,6 +65,7 @@ input.addEventListener('change', () => {
       greetingText = `Good ${timeOfDay}`;
     }
     else{
+      console.log(timeOfDay)
       if(timeOfDay=="morning"){
         greetingText="Доброе утро";
       }
@@ -90,7 +91,7 @@ input.addEventListener('change', () => {
       dayTime = "morning";
     }
     else if (hours >= 12 && hours < 18) {
-      dayTime = "day";
+      dayTime = "afternoon";
     }
     else if (hours >= 18) {
       dayTime = "evening";

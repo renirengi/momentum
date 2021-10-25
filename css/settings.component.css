@@ -3,6 +3,14 @@
 .show-modal {
   background: url('../assets/svg/setting.svg');
   background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;
   -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
 }
 

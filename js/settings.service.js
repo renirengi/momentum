@@ -19,6 +19,7 @@ export class SettingsService {
     const storedSettings = localStorage.getItem(settingsName);
 
     this.settings = storedSettings ? JSON.parse(storedSettings) : defaultSettigs;
+    this.listOfHiddenCallbacks = [];
   }
 
   static getInstance() {
@@ -26,6 +27,10 @@ export class SettingsService {
       SettingsService.service = new SettingsService();
     }
     return SettingsService.service;
+  }
+
+  addCallbackToListOfHiddenUpdates(callback) {
+    this.listOfHiddenCallbacks.push(callback);
   }
 
   get language() {
@@ -53,6 +58,7 @@ export class SettingsService {
   set listOfHiddenElements(list) {
     this.settings.listOfHiddenElements = list;
     this.#saveSettings();
+    this.listOfHiddenCallbacks.forEach((callback) => callback(list));
   }
 
   get city() {

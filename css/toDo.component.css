@@ -2,7 +2,7 @@
 
 .show-modal {
   background-image: url('../assets/svg/list.svg');
-  background-size: 32px 32px;
+  background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -10,6 +10,7 @@
   outline: 0;
   opacity: .8;
   cursor: pointer;
+  transition: .3s;
   -webkit-filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(288deg) brightness(104%) contrast(106%);
 }
 
@@ -18,11 +19,15 @@
   left: 0;
   width: 400px;
   height: 500px;
+  background-color: black;
 }
 
+li.done {
+  text-decoration: line-through;
+}
 
 .head {
-  padding: 30px 40px;
+  margin:20px 80px 20px 80px;
   color: white;
   text-align: center;
 }
@@ -46,20 +51,20 @@ input {
 }
 
 
-.addBtn {
-  padding: 10px;
-  width: 25%;
+.add-task {
+  height: 40px;
+  width: 15%;
   background: #679dad;
-  color: #555;
+  color: black;
   float: left;
   text-align: center;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
   transition: 0.3s;
   border-radius: 0;
 }
 
-.addBtn:hover {
+.add-task:hover {
   background-color: #bbb;
 }
 

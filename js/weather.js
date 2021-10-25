@@ -28,7 +28,7 @@ export function initWeather() {
       weatherIconElement.classList.add(`owf-${data.weather[0].id}`);
       temperatureElement.textContent = `${Math.round(data.main.temp)}°C`;
       weatherDescriptionElement.textContent = data.weather[0].description;
-      windElement.textContent = `${windText} ${Math.round(data.wind.speed)} meter per second`;
+      windElement.textContent = `${windText} ${Math.round(data.wind.speed)} m/c`;
       humidityElement.textContent = `${humidityText} ${Math.round(data.main.humidity)}%`;
 
       return true;

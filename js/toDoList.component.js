@@ -12,90 +12,79 @@ export class ToDoListComponent extends HTMLElement {
       <div class="modal todo-modal">
         <div class="modal-bodyList">
           <button class="close-btn close-todo"></button>
-          <form name="settingsForm">
-            <div id="myDiV" class="head">
-                <h2>My To-Do List</h2>
-                <input type="text" id="myInput" placeholder="Title...">
-                <span  class="addBtn">Add</span>
-            </div>
-            <ul id="myUL">
-            <li>Make the gym</li>
-              <li class="checked">Pick up Cyrus from kindergarten </li>
-              <li>Meet with Dad</li>
-              <li>Make Momentum</li>
-              <li>Call Anna</li>
-            </ul>
-          </form>
+          <div class="head">
+            <h2>My To-Do List</h2>
+            <input class="task-title" type="text" placeholder="Title..."> <button class="add-task">Add</button>
+          </div>
+          <ul class="task-list"></ul>
         </div>
       </div>
     `;
 
     this.shadow.innerHTML = template;
     this.modalElement = this.shadow.querySelector('.todo-modal');
+    this.taskListElement = this.shadow.querySelector('.task-list');
 
-    this.myNodelist = this.shadow.getElementsByTagName("li");
-    this.addBtn=this.shadow.querySelector('.addBtn'); 
-    this.close = this.shadow.getElementsByClassName("close");
-    this.list = this.shadow.querySelector('ul');
-
-
-    ///this.#loadToDoList();
+    this.#loadSettings();
 
     this.shadow.querySelector('.show-modal').addEventListener('click', () => this.#toggleModal());
     this.shadow.querySelector('.close-todo').addEventListener('click', () => this.#toggleModal());
+    this.shadow.querySelector('.add-task').addEventListener('click', () => {
+      const tasks = this.settings.toDoList;
+      const title = this.shadow.querySelector('.task-title').value.trim();
 
-    this.addBtn.addEventListener('click', ()=> newElement());
-    this.list.addEventListener('click', function(ev) {
-       
-      if (ev.target.tagName === 'LI') {
-        ev.target.classList.toggle('checked');
+      if (title) {
+        const taskExists = this.settings.toDoList.find((task) => task.title === title);
+
+        if (!taskExists) {
+          tasks.push({title});
+          this.settings.toDoList = tasks;
+          this.#addTaskElement(title);
+        } else {
+          console.error('Task is already added');
+        }
       }
-    }, false);
+    });
   }
 
-  /*#toggleModal() {
-    this.modalElement.classList.toggle('checked');
-  }*/
-  
-  for (let i = 0; i < myNodelist.length; i++) {
-    let span = document.createElement("span");
-    let txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    myNodelist[i].appendChild(span);
+  #toggleModal() {
+    this.modalElement.classList.toggle('displayed');
   }
-  
 
-  for (let i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      let div = this.parentElement;
-      div.style.display = "none";
-    }
+  #loadSettings() {
+    const tasks = this.settings.toDoList;
+
+    tasks.forEach((task) => this.#addTaskElement(task.title, task.done));
   }
-    
-  function newElement() {
-     li = document.createElement("li");
-    var inputValue = document.getElementById("myInput").value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    if (inputValue === '') {
-      ///alert("You must write something!");
-    } else {
-      document.getElementById("myUL").appendChild(li);
+
+  #addTaskElement(title, done = false) {
+    const liElement = document.createElement('li');
+
+    liElement.textContent = title;
+
+    if (done) {
+      liElement.classList.add('done');
     }
-    document.getElementById("myInput").value = "";
-  
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    li.appendChild(span);
-  
-    for (i = 0; i < close.length; i++) {
-      close[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
-      
-    }}
+
+    liElement.addEventListener('click', (e) => this.#toggleTaskDone(e))
+
+    this.taskListElement.appendChild(liElement);
+  }
+
+  #toggleTaskDone(e) {
+    const tasks = this.settings.toDoList;
+    const taskTitle = e.target.textContent;
+    const task = tasks.find((task) => task.title === taskTitle);
+
+    if (task) {
+      task.done = !task.done;
+      this.settings.toDoList = tasks;
+
+      if (task.done) {
+        e.target.classList.add('done');
+      } else {
+        e.target.classList.remove('done');
+      }
+    }
   }
 }

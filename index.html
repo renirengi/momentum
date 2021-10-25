@@ -10,8 +10,8 @@
   </head>
   <body>
     <header class="header">
-      <audio-player class="audio block"></audio-player>
-      <div class="weather block">
+      <audio-player id="player" class="audio hiddenContent"></audio-player>
+      <div id="weather" class="weather hiddenContent">
         <input type="text" id="city" class="city" placeholder="Минск" />
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
@@ -28,18 +28,18 @@
         <button class="slide-prev slider-icon"></button>
         <button class="slide-next slider-icon"></button>
       </div>
-      <time class="time block"></time>
-      <date class="date block"></date>
-      <div class="greeting-container block">
+      <time id="clock" class="time hiddenContent"></time>
+      <date id="date" class="date hiddenContent"></date>
+      <div id="welcome" class="greeting-container hiddenContent">
         <span class="greeting"></span>
         <input type="text" class="name" />
       </div>
     </main>
     <footer class="footer">
       <app-settings></app-settings>
-      <todo-list></todo-list>
-      <button class="change-quote block"></button>
-      <div class="quote-container block">
+      <todo-list id="todo" class="hiddenContent"></todo-list>
+      <div id="quote" class="quote-container hiddenContent">
+        <button class="change-quote"></button>
         <div class="quote"></div>
         <div class="author"></div>
       </div>

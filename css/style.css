@@ -210,22 +210,16 @@ body {
   min-height: 20px;
 }
 
-.block {
-  opacity: 1;
-  transition:
-    opacity 0.5s ease-in 0.5s,
-    width 0.5s ease,
-    height 0.5s ease;
-}
-
 .hiddenContent {
   opacity: 0;
-  width: 0;
-  height: 0;
   transition:
     opacity 0.5s ease-out,
     width 0.5s ease 0.5s,
     height 0.5s ease 0.5s;
+}
+
+.hiddenContent.showIt {
+  opacity: 1;
 }
 
 app-settings {
@@ -236,8 +230,8 @@ app-settings {
 
 todo-list {
   position: absolute;
-  bottom: 20px;
-  right: 30px;
+  bottom: 80px;
+  left: 30px;
 }
 
 @media (max-width: 768px) {
