@@ -65,16 +65,19 @@ input.addEventListener('change', () => {
       greetingText = `Good ${timeOfDay}`;
     }
     else{
-      if(dayTime=="morning"){
+      if(timeOfDay=="morning"){
         greetingText="Доброе утро";
       }
-      else if(dayTime=="afternoon"){
+      else if(timeOfDay=="afternoon"){
         greetingText="Добрый день";
       }
-      else if(dayTime=="evening"){
+      else if(timeOfDay=="evening"){
         greetingText="Добрый вечер";
       }
-      
+      else{
+        greetingText="Доброй ночи"
+      }
+
     
     }
      
