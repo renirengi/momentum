@@ -4,7 +4,7 @@ const defaultSettigs = {
   listOfHiddenElements: [],
   city: 'Минск',
   name: null,
-  toDoList: [], // { title: 'test', done: true }
+  toDoList: [], 
 };
 
 const settingsName = 'settings';
